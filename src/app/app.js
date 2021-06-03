@@ -2,6 +2,7 @@ import {NotesField} from "@/app/components/notes-field/notes-field";
 import {SummaryField} from "@/app/components/summary/summary";
 import toggleClass from "@/app/helpers/toggle-class";
 import {Note} from "@/app/components/note/note";
+import blinkElement from "@/app/helpers/blink-element";
 
 export class App {
   constructor() {
@@ -37,12 +38,20 @@ export class App {
 
   start() {
     this.btnAdd.addEventListener('click', () => {
-      console.log(this.noteCategoryInput.value);
-      if (this.noteTextInput.value && this.noteCategoryInput.value) {
-        const newNote = new Note(this.noteTextInput.value, this.noteCategoryInput.value);
-        this.notesActive.push(newNote);
-        this.notesField.updateNotes(this.notesActive);
+      if (!this.noteTextInput.value) {
+        blinkElement(this.noteTextInput);
+        return;
       }
+
+      if (!this.noteCategoryInput.value) {
+        blinkElement(this.noteCategoryInput);
+        return;
+      }
+
+      const newNote = new Note(this.noteTextInput.value, this.noteCategoryInput.value);
+      this.notesActive.push(newNote);
+      this.notesField.updateNotes(this.notesActive);
+
     });
 
     this.btnEdit.addEventListener('click', () => {
