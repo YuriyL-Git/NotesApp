@@ -53,7 +53,10 @@ export class App {
     });
 
     this.btnUpdate.addEventListener('click', () => {
-
+      const selectedNote = this.notes.filter(note => note.isSelected).pop();
+      selectedNote.content.component.innerHTML = this.noteTextInput.value;
+      selectedNote.category.component.innerHTML = this.noteCategoryInput.value;
+      this.notesField.updateNotes(this.notes);
     });
 
     this.btnRemove.addEventListener('click', () => {
@@ -76,17 +79,18 @@ export class App {
 
   noteClicked() {
     this.disableButtons();
+    this.noteTextInput.value = '';
+    this.noteCategoryInput.value = '';
+
     const selectedNotes = this.notes.filter(note => note.isSelected);
     if (selectedNotes.length === 1) {
       enableBtn(this.btnUpdate);
       this.noteTextInput.value = selectedNotes[0].content.component.innerHTML;
       this.noteCategoryInput.value = selectedNotes[0].category.component.innerHTML;
     }
-    if (selectedNotes.length > 1) {
+    if (selectedNotes.length > 0) {
       enableBtn(this.btnRemove);
       enableBtn(this.btnArchive);
-      this.noteTextInput.value = '';
-      this.noteCategoryInput.value = '';
     }
   }
 
