@@ -1,8 +1,10 @@
 import './assets/scss/style.scss';
 import {App} from './app/app';
 
-const appRoot = document.body;
+const notesField = document.querySelector('.notes-field');
 
 window.onload = () => {
-  new App(appRoot);
+  new App(notesField);
+
+  // console.log(appRoot);
 };
