@@ -3,12 +3,12 @@ import {SummaryField} from "@/app/components/summary/summary";
 import toggleClass from "@/app/helpers/toggle-class";
 import {Note} from "@/app/components/note/note";
 import blinkElement from "@/app/helpers/blink-element";
+import {disableBtn, enableBtn} from "@/app/helpers/change-btn-state";
 
 export class App {
   constructor() {
     this.btnAdd = document.querySelector('.header__btn-add');
-    this.btnEdit = document.querySelector('.header__btn-edit');
-    this.btnSave = document.querySelector('.header__btn-save');
+    this.btnUpdate = document.querySelector('.header__btn-update');
     this.btnRemove = document.querySelector('.header__btn-remove');
     this.btnArchive = document.querySelector('.header__btn-archive');
     this.btnRestore = document.querySelector('.header__btn-restore');
@@ -32,8 +32,8 @@ export class App {
     this.summaryEntry.append(this.summaryField.component);
     this.notesEntry.append(this.notesField.component);
 
-    this.notesActive = [];
-    this.notesArchive = [];
+    this.notes = [];
+    this.disableButtons();
   }
 
   start() {
@@ -42,19 +42,17 @@ export class App {
         blinkElement(this.noteTextInput);
         return;
       }
-
       if (!this.noteCategoryInput.value) {
         blinkElement(this.noteCategoryInput);
         return;
       }
 
-      const newNote = new Note(this.noteTextInput.value, this.noteCategoryInput.value);
-      this.notesActive.push(newNote);
-      this.notesField.updateNotes(this.notesActive);
-
+      const newNote = new Note(this.noteTextInput.value, this.noteCategoryInput.value, this.noteClicked.bind(this));
+      this.notes.push(newNote);
+      this.notesField.updateNotes(this.notes);
     });
 
-    this.btnEdit.addEventListener('click', () => {
+    this.btnUpdate.addEventListener('click', () => {
 
     });
 
@@ -73,6 +71,29 @@ export class App {
     this.btnShowArchive.addEventListener('click', () => {
 
     });
+
+  }
+
+  noteClicked() {
+    this.disableButtons();
+    const selectedNotes = this.notes.filter(note => note.isSelected);
+    if (selectedNotes.length === 1) {
+      enableBtn(this.btnUpdate);
+      this.noteTextInput.value = selectedNotes[0].content.component.innerHTML;
+      this.noteCategoryInput.value = selectedNotes[0].category.component.innerHTML;
+    }
+    if (selectedNotes.length > 1) {
+      enableBtn(this.btnRemove);
+      enableBtn(this.btnArchive);
+      this.noteTextInput.value = '';
+      this.noteCategoryInput.value = '';
+    }
+  }
+
+  disableButtons() {
+    disableBtn(this.btnUpdate);
+    disableBtn(this.btnRemove);
+    disableBtn(this.btnArchive);
   }
 
 

@@ -30,6 +30,15 @@
     outline: none;
     border-radius: 5px;
     background-color: white;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(255 255 255 / 58%);
+    }
+
+    &:active {
+      background-color: white;
+    }
   }
 }
 
