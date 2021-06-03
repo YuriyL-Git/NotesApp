@@ -11,11 +11,16 @@
 </head>
 <body class="app-body">
 <header class="header">
-  <div class="header__controls-btn">
+  <div class="header__control-btn-wrapper">
     <button class="btn header__btn-add">Add</button>
     <button class="btn header__btn-edit">Edit</button>
     <button class="btn header__btn-remove">Remove</button>
     <button class="btn header__btn-archive">Archive</button>
+    <button class="btn header__btn-restore hidden">Restore</button>
+  </div>
+  <div class="header__render-btn-wrapper">
+    <button class="btn header__btn-show-notes header__btn-show--active">Notes</button>
+    <button class="btn header__btn-show-archive">Archive</button>
   </div>
 </header>
 
@@ -34,11 +39,16 @@
     </div>
   </section>
 </div>
-<div class="notes-field__wrapper">
-  <section class="notes-field">
 
-  </section>
-</div>
+<section class="info-section">
+  <div class="notes-field__wrapper">
+    <p class="notes-field__title">Notes</p>
+  </div>
+  <div class="summary-field__wrapper">
+    <p class="summary-field__title">Summary</p>
+  </div>
+
+</section>
 
 </body>
 </html>

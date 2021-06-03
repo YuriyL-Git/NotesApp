@@ -1,10 +1,46 @@
-import {Note} from "@/app/components/note/note";
+import {NotesField} from "@/app/components/notes-field/notes-field";
 
 export class App {
-  constructor(notesField) {
-    console.log(notesField);
-    const note = new Note('my 21/08/1978 content placed in the note 22/08/89 ', 'category');
+  constructor() {
+    this.btnAdd = document.querySelector('.header__btn-add');
+    this.btnEdit = document.querySelector('.header__btn-edit');
+    this.btnRemove = document.querySelector('.header__btn-remove');
+    this.btnArchive = document.querySelector('.header__btn-archive');
+    this.btnRestore = document.querySelector('.header__btn-restore');
 
-    notesField.append(note.component);
+    this.btnShowNotes = document.querySelector('.header__btn-show-notes');
+    this.btnShowArchive = document.querySelector('.header__btn-show-archive');
+
+    this.notesEntry = document.querySelector('.notes-field__wrapper');
+    this.summaryEntry = document.querySelector('.summary-field__wrapper');
+
+    this.notesField = new NotesField();
+    this.notesEntry.append(this.notesField.component);
+  }
+
+  start() {
+    this.btnAdd.addEventListener('click', () => {
+
+    });
+
+    this.btnEdit.addEventListener('click', () => {
+
+    });
+
+    this.btnRemove.addEventListener('click', () => {
+
+    });
+
+    this.btnArchive.addEventListener('click', () => {
+
+    });
+
+    this.btnShowNotes.addEventListener('click', () => {
+
+    });
+
+    this.btnShowArchive.addEventListener('click', () => {
+
+    });
   }
 }

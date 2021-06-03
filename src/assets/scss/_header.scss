@@ -1,5 +1,8 @@
 .header {
-  &__controls-btn {
+  display: flex;
+  justify-content: space-between;
+
+  &__control-btn-wrapper {
     margin: 1rem 0 0 2rem;
     width: 65rem;
     height: 4rem;
@@ -22,4 +25,29 @@
   &__btn-archive {
     background-color: blue;
   }
+
+  &__render-btn-wrapper {
+    width: 37.5rem;
+    display: flex;
+    margin: 1rem 2rem 0 2rem;
+    justify-content: space-between;
+  }
+
+  &__btn-show-notes {
+    width: 18rem;
+    background-color: #1299cc;
+  }
+
+  &__btn-show-archive {
+    width: 18rem;
+    background-color: #1299cc;
+  }
+
+  &__btn-show--active {
+    color: #fbff01;
+  }
+}
+
+.hidden {
+  display: none;
 }

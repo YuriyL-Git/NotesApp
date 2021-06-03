@@ -10,6 +10,7 @@ export class Note extends Component {
     this.content = new Component('div', 'note__content');
     this.category = new Component('div', 'note__category');
     this.datesInTheNote = new Component('div', 'note__dates-in-note');
+    this.selected = false;
 
     this.creationTime.component.innerHTML = new Date().toJSON().slice(0, 10).split('-').reverse().join('/');
     this.content.component.innerHTML = noteContent;
@@ -17,5 +18,14 @@ export class Note extends Component {
     this.datesInTheNote.component.innerHTML = noteContent.match(FIND_DATES_REGEX).join('<br/>');
 
     this.appendComponents(this.creationTime, this.content, this.category, this.datesInTheNote);
+
+    this.setupNote();
+  }
+
+  setupNote() {
+    this.component.addEventListener('click', () => {
+      this.selected = !this.selected;
+      this.component.classList.toggle('note--selected');
+    });
   }
 }
