@@ -1,4 +1,5 @@
 import {NotesField} from "@/app/components/notes-field/notes-field";
+import {SummaryField} from "@/app/components/summary/summary";
 
 export class App {
   constructor() {
@@ -15,6 +16,13 @@ export class App {
     this.summaryEntry = document.querySelector('.summary-field__wrapper');
 
     this.notesField = new NotesField();
+    this.summaryField = new SummaryField([{category: 'thoghts', notesQty: 5}, {
+      category: 'something',
+      notesQty: 8
+    }, {category: 'something', notesQty: 8}, {category: 'something', notesQty: 8}]);
+
+
+    this.summaryEntry.append(this.summaryField.component);
     this.notesEntry.append(this.notesField.component);
   }
 
