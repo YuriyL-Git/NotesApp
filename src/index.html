@@ -21,7 +21,17 @@
 
 <div class="note-to-add__wrapper">
   <section class="note-to-add">
-    <input class="note-to-add__input" type="text">
+    <textarea class="note-to-add__input" id="" cols="30" rows="10" placeholder="enter your note"></textarea>
+    <input class="note-to-add__select" type="text" name="city" list="category-list" placeholder="category">
+    <datalist id="category-list">
+      <option value="Task">
+      <option value="Random Thought">
+      <option value="Idea">
+    </datalist>
+    <div class="btn-category__wrapper">
+      <button class="btn btn-category__add">Add category</button>
+      <button class="btn btn-category__remove">Remove selected</button>
+    </div>
   </section>
 </div>
 </body>
