@@ -1,25 +1,26 @@
 .note {
-  width: 95%;
+  width: 100%;
   margin: 0 auto 0.6rem;
-  height: 8rem;
+  height: auto;
+  min-height: 8rem;
   display: grid;
-  grid-template-columns: 10% 65% 10% 15%;
+  grid-template-columns: 10% 60% 15% 15%;
   grid-template-areas: "tm ct cg dt";
   font-family: Roboto, sans-serif;
   cursor: pointer;
   border-radius: 5px;
-
   background: linear-gradient(to top, rgb(178, 254, 250), rgb(14, 210, 247));;
+
 
   &:hover {
     background: linear-gradient(120deg, #b2fefa, #0ed2f7);
   }
 
   &--selected {
-    background: linear-gradient(120deg, #79ebe4, #00d7ff);
+    background: linear-gradient(120deg, #4b9f9a, #0db1d0);
 
     &:hover {
-      background: linear-gradient(120deg, #79ebe4, #00d7ff);
+      background: linear-gradient(120deg, #4b9f9a, #0db1d0);
     }
   }
 
@@ -41,7 +42,8 @@
     font-size: 2rem;
     display: flex;
     align-items: center;
-    padding-left: 2rem;
+    padding: 1rem 1rem 1rem 2rem;
+    overflow-wrap: anywhere;
 
   }
 

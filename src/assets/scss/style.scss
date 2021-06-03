@@ -17,7 +17,8 @@ html {
 
 .app-body {
   box-sizing: border-box;
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   background: -webkit-linear-gradient(to top, #b2fefa, #0ed2f7);
   background: linear-gradient(to top, #b2fefa, #0ed2f7);
 }

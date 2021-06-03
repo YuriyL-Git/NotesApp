@@ -15,7 +15,8 @@ export class Note extends Component {
     this.creationTime.component.innerHTML = new Date().toJSON().slice(0, 10).split('-').reverse().join('/');
     this.content.component.innerHTML = noteContent;
     this.category.component.innerHTML = noteCategory;
-    this.datesInTheNote.component.innerHTML = noteContent.match(FIND_DATES_REGEX).join('<br/>');
+    const dates = noteContent.match(FIND_DATES_REGEX);
+    if (dates) this.datesInTheNote.component.innerHTML = dates.join('<br/>');
 
     this.appendComponents(this.creationTime, this.content, this.category, this.datesInTheNote);
 
