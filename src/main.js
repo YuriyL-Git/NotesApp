@@ -4,5 +4,5 @@ import {App} from './app/app';
 const appRoot = document.body;
 
 window.onload = () => {
-  const app = new App(appRoot);
+  new App(appRoot);
 };

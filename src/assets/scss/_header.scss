@@ -1,0 +1,25 @@
+.header {
+  &__controls-btn {
+    margin: 0.5rem 0 0 2rem;
+    width: 50rem;
+    height: 4rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__btn-add {
+    background-color: green;
+  }
+
+  &__btn-edit {
+    background-color: orange;
+  }
+
+  &__btn-remove {
+    background-color: red;
+  }
+
+  &__btn-archive {
+    background-color: blue;
+  }
+}
