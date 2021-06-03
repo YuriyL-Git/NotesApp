@@ -1,6 +1,7 @@
 import './_summary.scss';
 import {Component} from "@/app/components/base-component/component";
 
+
 export class SummaryField extends Component {
   /* summary data array of objects {category: string, notesQty: number}*/
   constructor(summaryData) {
