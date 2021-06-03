@@ -33,6 +33,7 @@ export class App {
     this.notesEntry.append(this.notesField.component);
 
     this.notes = [];
+    this.isActiveNotesPage = true;
     this.disableButtons();
   }
 
@@ -49,22 +50,25 @@ export class App {
 
       const newNote = new Note(this.noteTextInput.value, this.noteCategoryInput.value, this.noteClicked.bind(this));
       this.notes.push(newNote);
-      this.notesField.updateNotes(this.notes);
+      this.notesField.updateNotes(this.notes, this.isActiveNotesPage);
     });
 
     this.btnUpdate.addEventListener('click', () => {
       const selectedNote = this.notes.filter(note => note.isSelected).pop();
       selectedNote.content.component.innerHTML = this.noteTextInput.value;
       selectedNote.category.component.innerHTML = this.noteCategoryInput.value;
-      this.notesField.updateNotes(this.notes);
+      this.notesField.updateNotes(this.notes, this.isActiveNotesPage);
     });
 
     this.btnRemove.addEventListener('click', () => {
-
+      this.notes = this.notes.filter(note => !note.isSelected);
+      this.notesField.updateNotes(this.notes, this.isActiveNotesPage);
     });
 
     this.btnArchive.addEventListener('click', () => {
-
+      const selectedNotes = this.notes.filter(note => note.isSelected);
+      selectedNotes.forEach(note => note.isActive = false);
+      this.notesField.updateNotes(this.notes, this.isActiveNotesPage);
     });
 
     this.btnShowNotes.addEventListener('click', () => {

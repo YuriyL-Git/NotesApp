@@ -11,7 +11,7 @@ export class Note extends Component {
     this.category = new Component('div', 'note__category');
     this.datesInTheNote = new Component('div', 'note__dates-in-note');
     this.isSelected = false;
-    this.isActive = false;
+    this.isActive = true;
 
     this.creationTime.component.innerHTML = new Date().toJSON().slice(0, 10).split('-').reverse().join('/');
     this.content.component.innerHTML = noteContent;
