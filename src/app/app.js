@@ -76,6 +76,7 @@ export class App {
     this.btnRestore.addEventListener('click', () => {
       const selectedNotes = this.notes.filter(note => note.isSelected);
       selectedNotes.forEach(note => note.isActive = true);
+      this.notes.forEach(note => note.removeSelection());
       this.updateNotesField();
     });
 
