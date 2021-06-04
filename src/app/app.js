@@ -12,7 +12,7 @@ export class App {
     this.btnArchive = document.querySelector('.header__btn-archive');
     this.btnRestore = document.querySelector('.header__btn-restore');
 
-    this.btnShowNotes = document.querySelector('.header__btn-show-notes');
+    this.btnShowActiveNotes = document.querySelector('.header__btn-show-notes');
     this.btnShowArchive = document.querySelector('.header__btn-show-archive');
 
     this.notesFieldTitle = document.querySelector('.notes-field__title');
@@ -48,70 +48,76 @@ export class App {
         return;
       }
 
-      const newNote = new Note(this.noteTextInput.value, this.noteCategoryInput.value, this.noteClicked.bind(this));
+      const newNote = new Note(this.noteTextInput.value, this.noteCategoryInput.value, this.updateNotes.bind(this));
       this.notes.push(newNote);
-      if (!this.isActiveNotesPage) this.btnShowNotes.click();
+      if (!this.isActiveNotesPage) this.btnShowActiveNotes.click();
       this.noteTextInput.value = '';
-      this.updateField();
+      this.updateNotesField();
     });
 
     this.btnUpdate.addEventListener('click', () => {
       const selectedNote = this.notes.filter(note => note.isSelected).pop();
-      selectedNote.content.component.innerHTML = this.noteTextInput.value;
-      selectedNote.category.component.innerHTML = this.noteCategoryInput.value;
-      this.updateField();
+      selectedNote.updateNote(this.noteTextInput.value, this.noteCategoryInput.value);
+      this.updateNotesField();
     });
 
     this.btnRemove.addEventListener('click', () => {
       this.notes = this.notes.filter(note => !note.isSelected);
-      this.updateField();
+      this.updateNotesField();
     });
 
     this.btnArchive.addEventListener('click', () => {
       const selectedNotes = this.notes.filter(note => note.isSelected);
       selectedNotes.forEach(note => note.isActive = false);
-      this.updateField();
+      this.notes.forEach(note => note.removeSelection());
+      this.updateNotesField();
     });
 
     this.btnRestore.addEventListener('click', () => {
       const selectedNotes = this.notes.filter(note => note.isSelected);
       selectedNotes.forEach(note => note.isActive = true);
-      this.updateField();
+      this.updateNotesField();
     });
 
-    this.btnShowNotes.addEventListener('click', () => {
-      this.btnShowNotes.classList.add('btn-active');
-      this.btnShowArchive.classList.remove('btn-active');
-      this.btnArchive.classList.remove('hidden');
-      this.btnRestore.classList.add('hidden');
-
-      this.isActiveNotesPage = true;
-      this.notesFieldTitle.innerHTML = 'Notes';
-      this.notes.forEach(note => note.removeSelection());
-      this.noteClicked();
-      this.updateField();
+    this.btnShowActiveNotes.addEventListener('click', () => {
+      this.showActiveNotes();
     });
 
     this.btnShowArchive.addEventListener('click', () => {
-      this.btnShowNotes.classList.remove('btn-active');
-      this.btnShowArchive.classList.add('btn-active');
-      this.btnArchive.classList.add('hidden');
-      this.btnRestore.classList.remove('hidden');
-
-      this.isActiveNotesPage = false;
-      this.notesFieldTitle.innerHTML = 'Archive';
-      this.notes.forEach(note => note.removeSelection());
-      this.noteClicked();
-      this.updateField();
+      this.showArchiveNotes();
     });
 
   }
 
-  noteClicked() {
+  showActiveNotes() {
+    this.btnShowActiveNotes.classList.add('btn-active');
+    this.btnShowArchive.classList.remove('btn-active');
+    this.btnArchive.classList.remove('hidden');
+    this.btnRestore.classList.add('hidden');
+
+    this.isActiveNotesPage = true;
+    this.notesFieldTitle.innerHTML = 'Notes';
+    this.notes.forEach(note => note.removeSelection());
+    this.updateNotesField();
+  }
+
+  showArchiveNotes() {
+    this.btnShowActiveNotes.classList.remove('btn-active');
+    this.btnShowArchive.classList.add('btn-active');
+    this.btnArchive.classList.add('hidden');
+    this.btnRestore.classList.remove('hidden');
+
+    this.isActiveNotesPage = false;
+    this.notesFieldTitle.innerHTML = 'Archive';
+    this.notes.forEach(note => note.removeSelection());
+    this.updateNotesField();
+  }
+
+  updateNotes() {
     this.disableButtons();
     this.noteTextInput.value = '';
-
     const selectedNotes = this.notes.filter(note => note.isSelected);
+
     if (selectedNotes.length === 1) {
       enableBtn(this.btnUpdate);
       this.noteTextInput.value = selectedNotes[0].content.component.innerHTML;
@@ -131,7 +137,8 @@ export class App {
     disableBtn(this.btnRestore);
   }
 
-  updateField() {
+  updateNotesField() {
+    this.updateNotes();
     this.notesField.updateNotes(this.notes, this.isActiveNotesPage);
   }
 }
