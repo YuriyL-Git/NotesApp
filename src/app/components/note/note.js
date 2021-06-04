@@ -15,12 +15,17 @@ export class Note extends Component {
     this.isActive = true;
 
     this.updateNote(noteContent, noteCategory);
-    this.appendComponents(this.creationTime, this.content, this.category, this.datesInTheNote);
-    this.setupNote();
+    this.appendComponents(
+      this.creationTime,
+      this.content,
+      this.category,
+      this.datesInTheNote
+    );
+    this.setupNoteClick();
     this.callbackClicked = onClickCallback;
   }
 
-  setupNote() {
+  setupNoteClick() {
     this.component.addEventListener('click', () => {
       this.isSelected = !this.isSelected;
       this.component.classList.toggle('note--selected');
@@ -29,7 +34,12 @@ export class Note extends Component {
   }
 
   updateNote(noteContent, noteCategory) {
-    this.creationTime.component.innerHTML = new Date().toJSON().slice(0, 10).split('-').reverse().join('/');
+    this.creationTime.component.innerHTML = new Date()
+      .toJSON()
+      .slice(0, 10)
+      .split('-')
+      .reverse()
+      .join('/');
     this.content.component.innerHTML = noteContent;
     this.category.component.innerHTML = noteCategory;
     const dates = noteContent.match(FIND_DATES_REGEX);

@@ -26,7 +26,6 @@ export class App {
     this.summaryField = new SummaryField();
     this.summaryField.updateData(this.getSummaryData());
 
-
     this.summaryEntry.append(this.summaryField.component);
     this.notesEntry.append(this.notesField.component);
 
@@ -45,12 +44,13 @@ export class App {
         blinkElement(this.noteCategoryInput);
         return;
       }
-
-      const newNote = new Note(this.noteTextInput.value,
+      const newNote = new Note(
+        this.noteTextInput.value,
         this.noteCategoryInput.value,
-        this.updateNotes.bind(this));
+        this.updateNotes.bind(this)
+      );
       this.notes.push(newNote);
-      if (!this.isActiveNotesPage) this.btnShowActiveNotes.click();
+      if (!this.isActiveNotesPage) this.showActiveNotes();
       this.noteTextInput.value = '';
       this.updateNotesField();
     });
@@ -86,7 +86,6 @@ export class App {
     this.btnShowArchive.addEventListener('click', () => {
       this.showArchiveNotes();
     });
-
   }
 
   showActiveNotes() {
@@ -147,9 +146,11 @@ export class App {
   getSummaryData() {
     const result = [];
     let currentNotes = [];
-    if (this.notes) currentNotes = this.notes.filter(
-      note => note.isActive === this.isActiveNotesPage
-    );
+    if (this.notes) {
+      currentNotes = this.notes.filter(
+        note => note.isActive === this.isActiveNotesPage
+      );
+    }
     const categories = [...this.noteCategoryInput.options].filter(
       cat => cat.text !== 'category');
 

@@ -10,21 +10,5 @@ export class Component {
       this.component.append(element.component);
     });
   }
-
-  setInnerText(text) {
-    this.component.innerHTML = text;
-  }
-
-  getInnerText() {
-    return this.component.innerHTML;
-  }
-
-  hide() {
-    this.component.style.display = 'none';
-  }
-
-  show() {
-    this.component.style.removeProperty('display');
-  }
 }
 

@@ -5,7 +5,6 @@ function disableButtons(...buttons) {
   });
 }
 
-
 function enableButtons(...buttons) {
   buttons.forEach(btn => {
     btn.style.pointerEvents = 'auto';
