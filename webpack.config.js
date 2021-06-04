@@ -75,14 +75,6 @@ module.exports = {
       favicon: "./assets/icons/favicon.ico"
     }),
     new CleanWebpackPlugin(),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, 'src/public'),
-          to: path.resolve(__dirname, 'dist'),
-        },
-      ],
-    }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
     }),
