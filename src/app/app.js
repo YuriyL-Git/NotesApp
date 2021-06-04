@@ -2,7 +2,7 @@ import {NotesField} from "@/app/components/notes-field/notes-field";
 import {SummaryField} from "@/app/components/summary/summary";
 import {Note} from "@/app/components/note/note";
 import blinkElement from "@/app/helpers/blink-element";
-import {disableBtn, enableBtn} from "@/app/helpers/change-btn-state";
+import {disableButtons, enableButtons} from "@/app/helpers/change-btn-state";
 
 export class App {
   constructor() {
@@ -23,10 +23,8 @@ export class App {
     this.summaryEntry = document.querySelector('.summary-field__wrapper');
 
     this.notesField = new NotesField();
-    this.summaryField = new SummaryField([{category: 'thoghts', notesQty: 5}, {
-      category: 'something',
-      notesQty: 8
-    }, {category: 'something', notesQty: 8}, {category: 'something', notesQty: 8}]);
+    this.summaryField = new SummaryField();
+    this.summaryField.updateData(this.getSummaryData());
 
 
     this.summaryEntry.append(this.summaryField.component);
@@ -48,7 +46,9 @@ export class App {
         return;
       }
 
-      const newNote = new Note(this.noteTextInput.value, this.noteCategoryInput.value, this.updateNotes.bind(this));
+      const newNote = new Note(this.noteTextInput.value,
+        this.noteCategoryInput.value,
+        this.updateNotes.bind(this));
       this.notes.push(newNote);
       if (!this.isActiveNotesPage) this.btnShowActiveNotes.click();
       this.noteTextInput.value = '';
@@ -119,27 +119,47 @@ export class App {
     const selectedNotes = this.notes.filter(note => note.isSelected);
 
     if (selectedNotes.length === 1) {
-      enableBtn(this.btnUpdate);
+      enableButtons(this.btnUpdate);
       this.noteTextInput.value = selectedNotes[0].content.component.innerHTML;
       this.noteCategoryInput.value = selectedNotes[0].category.component.innerHTML;
     }
     if (selectedNotes.length > 0) {
-      enableBtn(this.btnRemove);
-      enableBtn(this.btnArchive);
-      enableBtn(this.btnRestore);
+      enableButtons(this.btnRemove, this.btnArchive, this.btnRestore);
     }
   }
 
   disableButtons() {
-    disableBtn(this.btnUpdate);
-    disableBtn(this.btnRemove);
-    disableBtn(this.btnArchive);
-    disableBtn(this.btnRestore);
+    disableButtons(
+      this.btnUpdate,
+      this.btnRemove,
+      this.btnArchive,
+      this.btnRestore
+    );
   }
 
   updateNotesField() {
+    this.getSummaryData();
     this.updateNotes();
+    this.summaryField.updateData(this.getSummaryData());
     this.notesField.updateNotes(this.notes, this.isActiveNotesPage);
+  }
+
+  getSummaryData() {
+    const result = [];
+    let currentNotes = [];
+    if (this.notes) currentNotes = this.notes.filter(
+      note => note.isActive === this.isActiveNotesPage
+    );
+    const categories = [...this.noteCategoryInput.options].filter(
+      cat => cat.text !== 'category');
+
+    categories.forEach(category => {
+      const categoryData = {category: category.text, notesQty: 0};
+      categoryData.notesQty = currentNotes.filter(
+        note => note.category.component.innerHTML === category.text).length;
+      result.push(categoryData);
+    });
+    return result;
   }
 }
 

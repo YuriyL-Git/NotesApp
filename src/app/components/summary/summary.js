@@ -4,10 +4,10 @@ import {Component} from "@/app/components/base-component/component";
 
 export class SummaryField extends Component {
   /* summary data array of objects {category: string, notesQty: number}*/
-  constructor(summaryData) {
+  constructor() {
     super('section', 'summary-field');
     this.rows = [];
-    this.updateData(summaryData);
+    // this.updateData(summaryData);
   }
 
   updateData(summaryData) {
